@@ -1,7 +1,7 @@
 [project]
 name = "prompt-filter-nodes"
 description = "These nodes identifies specific content in the input prompt (each content occupies only one line) based on txt files containing predefined content that needs to be recognized. It then adds a special prefix (as a marker) to the identified content and inserts it back into the original prompt."
-version = "1.0.2"
+version = "1.0.1"
 license = {file = "LICENSE"}
 
 [project.urls]
