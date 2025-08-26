@@ -17,21 +17,31 @@ This node contains a text box labeled "1girl" for inputting the overall prompt c
 
 ![Concatenate_Strings（Multi）node](picture/wechat_2025-08-26_212342_699.png)
 
+这个节点主要是将多个识别结果（字符串格式）\需要添加的特定前缀以特定顺序分行排列好（本质与其他的文本联结节点完全一样，只是懒得用其他节点包而已）。其中separator中可输入不同输入结果间的分隔符（默认为换行符\n）。此处结果将分别输入Apply Multiple Prefixes to Keywords节点中。
 
+This node primarily arranges multiple recognition results (in string format) and the specific prefixes to be added in a specified order, with each entry on a separate line (essentially functioning identically to other text concatenation nodes, but included here for convenience to avoid using additional node packages). The "separator" field allows input of a delimiter between different results (default is a newline character \n). The output here will be fed into the "Apply Multiple Prefixes to Keywords" node.
 
+（3）Apply Multiple Prefixes to Keywords node
 
+![Apply Multiple Prefixes to Keywords node](picture/wechat_2025-08-26_212349_586.png)
 
+这个节点的作用是根据输入的识别结果将需要添加的特定前缀添加到整体prompt的特定内容中并输出添加特定前缀后的整体prompt。
+由上至下三个文本框输入内容分别为：
+（1）整体prompt内容
+（2）过滤文件识别结果
+（3）特定前缀添加内容（你可以直接在这里按一行一个前缀的格式输入，也可通过其他字符串节点整合成节点默认的格式后再一起输入进来）
 
+The function of this node is to add specific prefixes to particular content within the overall prompt based on the input recognition results, and output the modified overall prompt with the added prefixes.
+The three input fields from top to bottom are:  
+(1) Overall prompt content  
+(2) Filtered file recognition results  
+(3) Specific prefix content (you may directly input prefixes here in the format of one prefix per line, or integrate them into the node's default format using other string nodes before inputting)  
 
+（4）示例工作流（example workflow）（其中特定前缀的字符串节点也可以是其他节点包的节点，只要输出的是字符串就行）
 
+(Note: The string node for specific prefixes can also be a node from other node packages, as long as it outputs a string.)
 
-
-
-
-
-
-
-
+![Cexample workflow](picture/wechat_2025-08-26_212654_999.png)
 
 
 
