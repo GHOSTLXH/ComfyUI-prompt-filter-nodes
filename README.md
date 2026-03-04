@@ -41,9 +41,25 @@ The three input fields from top to bottom are:
 
 ![Filter Tags by Prefix node](picture/_20260304174732_12489_122.png)
 
+这个节点的作用是依据在节点中输入的特定前缀对输入内容（每个tag以逗号进行分割）进行过滤，并且只输出带有特定前缀的tag内容。
+输入:
+prompt_text: 包含dan tag的原始文本。
+prefix: 你要寻找的特定前缀（例如 #（角色）, @（画师）, 或 lora:）。
+remove_prefix_in_output: 一个开关。
+开启（True）：输出 tag (去掉了前缀)。
+关闭（False）（常用）：输出 @tag (保留原始前缀)。
+string输出: 仅包含那些带有指定前缀的 tag 组成的字符串。
 
+The function of this ComfyUI node is to filter the input content (each tag separated by commas) based on a specific prefix entered in the node, and output only the tag content that contains that specific prefix.  
 
+Input:  
+- `prompt_text`: The original text containing dan tags.  
+- `prefix`: The specific prefix you are looking for (e.g., #(character), @(artist), or lora:).  
+- `remove_prefix_in_output`: A switch.  
+  - Enabled (True): Outputs the tag (with the prefix removed).  
+  - Disabled (False) (commonly used): Outputs @tag (retains the original prefix).  
 
+Output (string): A string consisting only of the tags that contain the specified prefix.
 
 （5）示例工作流（example workflow）（其中特定前缀的字符串节点也可以是其他节点包的节点，只要输出的是字符串就行）
 
