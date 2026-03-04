@@ -37,11 +37,20 @@ The three input fields from top to bottom are:
 (2) Filtered file recognition results  
 (3) Specific prefix content (you may directly input prefixes here in the format of one prefix per line, or integrate them into the node's default format using other string nodes before inputting)  
 
-（4）示例工作流（example workflow）（其中特定前缀的字符串节点也可以是其他节点包的节点，只要输出的是字符串就行）
+（4）Filter Tags by Prefix node
+
+![Filter Tags by Prefix node](picture/_20260304174732_12489_122.png)
+
+
+
+
+
+（5）示例工作流（example workflow）（其中特定前缀的字符串节点也可以是其他节点包的节点，只要输出的是字符串就行）
 
 (Note: The string node for specific prefixes can also be a node from other node packages, as long as it outputs a string.)
 
 ![Cexample workflow](picture/wechat_2025-08-26_212654_999.png)
+
 
 
 
