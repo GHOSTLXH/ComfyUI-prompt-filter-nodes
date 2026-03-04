@@ -1,5 +1,3 @@
-# prompt_filter_from_file.py
-
 import os
 
 class PromptFilterByFile:
@@ -133,7 +131,6 @@ class ApplyMultiplePrefixesToKeywords:
 
         return (result_string,)
 
-# -------------------------- 新增的连接器节点 --------------------------
 
 class StringListConcatenate:
     """
@@ -161,7 +158,7 @@ class StringListConcatenate:
 
     RETURN_TYPES = ("STRING",)
     FUNCTION = "concatenate_strings"
-    CATEGORY = "text/utils" # 放在一个新的 "utils" 类别下，更清晰
+    CATEGORY = "text/utils"
 
     def concatenate_strings(self, separator, string_1, **kwargs):
         # Python 会自动将 "\\n" 这样的字符串解释为换行符
@@ -187,18 +184,70 @@ class StringListConcatenate:
 
         return (result_string,)
 
+
+# -------------------------- 新增的筛选节点 --------------------------
+
+class FilterTagsByPrefix:
+    """
+    一个ComfyUI节点，根据输入的前缀对Prompt进行筛选。
+    只输出以该前缀开头的tag。可选择是否在输出中保留该前缀。
+    A ComfyUI node that filters prompts based on a specific prefix.
+    Only outputs tags that start with the input prefix. 
+    Optionally removes the prefix from the output.
+    """
+    @classmethod
+    def INPUT_TYPES(s):
+        return {
+            "required": {
+                "prompt_text": ("STRING", {"multiline": True, "default": "1girl, @hatsune miku, red dress, @twintails, masterpiece"}),
+                "prefix": ("STRING", {"multiline": False, "default": "@"}),
+                "remove_prefix_in_output": ("BOOLEAN", {"default": False, "label_on": "移除前缀", "label_off": "保留前缀"}),
+            }
+        }
+
+    RETURN_TYPES = ("STRING",)
+    FUNCTION = "filter_by_prefix"
+    CATEGORY = "text/filtering"
+
+    def filter_by_prefix(self, prompt_text, prefix, remove_prefix_in_output):
+        if not prompt_text:
+            return ("",)
+
+        # 按逗号分割并清理空格
+        tags = [t.strip() for t in prompt_text.split(',')]
+        filtered_tags = []
+
+        for tag in tags:
+            if tag.startswith(prefix):
+                if remove_prefix_in_output:
+                    # 移除前缀长度的字符
+                    clean_tag = tag[len(prefix):].strip()
+                    filtered_tags.append(clean_tag)
+                else:
+                    filtered_tags.append(tag)
+
+        result_string = ", ".join(filtered_tags)
+        
+        print(f"提示 (FilterTagsByPrefix): 筛选前缀 '{prefix}'。")
+        print(f"提示 (FilterTagsByPrefix): 找到 {len(filtered_tags)} 个匹配项。")
+        print(f"提示 (FilterTagsByPrefix): 最终输出: '{result_string}'")
+
+        return (result_string,)
+
 # ---------------------------------------------------------------------
 
 # 注册所有节点到ComfyUI
 NODE_CLASS_MAPPINGS = {
     "PromptFilterByFile": PromptFilterByFile,
     "ApplyMultiplePrefixesToKeywords": ApplyMultiplePrefixesToKeywords,
-    "StringListConcatenate": StringListConcatenate, # 注册新的连接器节点
+    "StringListConcatenate": StringListConcatenate,
+    "FilterTagsByPrefix": FilterTagsByPrefix, # 新增注册
 }
 
 # 设置所有节点在菜单中显示的名称
 NODE_DISPLAY_NAME_MAPPINGS = {
     "PromptFilterByFile": "Filter Prompt by TXT File",
     "ApplyMultiplePrefixesToKeywords": "Apply Multiple Prefixes to Keywords",
-    "StringListConcatenate": "Concatenate Strings (Multi)", # 为新节点设置显示名称
+    "StringListConcatenate": "Concatenate Strings (Multi)",
+    "FilterTagsByPrefix": "Filter Tags by Prefix", # 新增显示名称
 }
